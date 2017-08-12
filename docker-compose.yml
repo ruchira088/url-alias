@@ -1,0 +1,21 @@
+version: "2"
+
+services:
+
+  url-alias-api:
+    build: ./url-alias-api
+    ports:
+      - 9000:9000
+    volumes:
+      - "./url-alias-api:/opt/url-alias-api"
+      - "~/.ivy2/cache:/root/.ivy2/cache"
+    environment:
+      DATABASE_URL: "jdbc:mysql://root:password@sql-database:3306/url-alias-api"
+
+  sql-database:
+    image: mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_DATABASE: "url-alias-api"
